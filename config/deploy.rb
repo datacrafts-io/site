@@ -6,9 +6,9 @@ set :deploy_to,   "/var/www/#{fetch(:application)}"
 set :rvm_type,         :auto
 set :rvm_ruby_version, 'ruby-2.0.0-p247@crafts-site'
 
-set :log_level, :debug
+set :log_level, :info
 
-set :linked_files, %w{config/database.yml}
+set :linked_files, %w{config/database.yml .env}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 set :keep_releases, 5
