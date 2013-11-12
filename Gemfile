@@ -12,7 +12,13 @@ gem 'jquery-rails'
 gem 'slim-rails'
 gem 'jbuilder', '~> 1.2'
 gem 'unicorn'
-gem 'capistrano', group: :development
+
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-rvm'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+end
 
 group :doc do
   gem 'sdoc', require: false
