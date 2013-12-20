@@ -14,6 +14,7 @@ gem 'kramdown'
 gem 'jbuilder', '~> 1.2'
 gem 'rails-assets-jquery'
 gem 'rails-assets-bootstrap'
+gem 'rails-assets-modernizr'
 
 group :development do
   gem 'capistrano'
