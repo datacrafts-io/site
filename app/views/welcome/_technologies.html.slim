@@ -1,13 +1,17 @@
-.row.text-center
-  .col-md-1.col-md-offset-1
-    = link_to image_tag('technologies/ruby-logo.png', title: 'Ruby Language', class: 'technology-logo'), 'https://www.ruby-lang.org/'
-  .col-md-1
-    = link_to image_tag('technologies/rails-logo.png', title: 'Ruby on Rails Framework', class: 'technology-logo'), 'http://rubyonrails.org/'
-  .col-md-1
-    = link_to image_tag('technologies/postgresql-logo.png', title: 'Postgresql', class: 'technology-logo'), 'http://www.postgresql.org/'
-  .col-md-2
-    = link_to image_tag('technologies/capistrano-logo.png', title: 'Capistrano', class: 'technology-logo'), 'http://www.capistranorb.com/'
-  .col-md-2
-    = link_to image_tag('technologies/vagrant-logo.png', title: 'Vagrant', class: 'technology-logo'), 'http://www.vagrantup.com/'
-  .col-md-2
-    = link_to image_tag('technologies/github-logo.png', title: 'GitHub', class: 'technology-logo'), 'https://github.com/'
+.technologies-block
+  h3.text-center
+    | We love to use next technologies in our everyday work
+
+  ul.technologies-list.text-center
+    li.technology-item
+      = link_to image_tag('technologies/github-logo.png', title: 'GitHub', class: 'technology-logo'), 'https://github.com/'
+    li.technology-item
+      = link_to image_tag('technologies/ruby-logo.png', title: 'Ruby Language', class: 'technology-logo'), 'https://www.ruby-lang.org/'
+    li.technology-item
+      = link_to image_tag('technologies/rails-logo.png', title: 'Ruby on Rails Framework', class: 'technology-logo'), 'http://rubyonrails.org/'
+    li.technology-item
+      = link_to image_tag('technologies/postgresql-logo.png', title: 'Postgresql', class: 'technology-logo'), 'http://www.postgresql.org/'
+    li.technology-item
+      = link_to image_tag('technologies/capistrano-short-logo.png', title: 'Capistrano', class: 'technology-logo'), 'http://www.capistranorb.com/'
+    li.technology-item
+      = link_to image_tag('technologies/vagrant-logo.png', title: 'Vagrant', class: 'technology-logo'), 'http://www.vagrantup.com/'
