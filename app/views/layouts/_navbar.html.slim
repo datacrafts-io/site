@@ -9,5 +9,6 @@
 
     .collapse.navbar-collapse
       ul.nav.navbar-nav
-        li = link_to 'Team', team_path
-        li = link_to 'Contact Us', contacts_path
+        = content_tag :li, (link_to 'Services', services_path),   class: is_active?('services')
+        = content_tag :li, (link_to 'Team', team_path),           class: is_active?('team')
+        = content_tag :li, (link_to 'Contact Us', contacts_path), class: is_active?('contacts')
