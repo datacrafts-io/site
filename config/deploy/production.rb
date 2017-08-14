@@ -1,3 +1,5 @@
-set :stage, :production
+set :stage,      :production
+set :rails_env,  :production
 
-server 'summercode.com', user: 'cr0t', roles: %w{app web db}
+set :branch, 'master'
+set :deploy_to, '/home/crafter/datacrafts_landing'
