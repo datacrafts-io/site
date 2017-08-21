@@ -1,2 +1,2 @@
 require './landing'
-run Landing
+run App

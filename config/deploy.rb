@@ -20,7 +20,21 @@ set :unicorn_conf, "#{current_path}/config/unicorn/#{fetch(:rails_env)}.rb"
 set :rvm_type, :auto
 set :log_level, :debug
 
+set :linked_dirs, fetch(:linked_dirs, []) + %w(
+  log
+  tmp/pids
+)
+
 after 'deploy:publishing', 'deploy:restart'
+
+namespace :landing do
+  desc "Set up config files (first time setup)"
+  task :setup do
+    on roles(:app) do
+      execute "mkdir -p #{shared_path}/tmp/pids"
+    end
+  end
+end
 
 namespace :deploy do
 
