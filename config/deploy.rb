@@ -14,7 +14,7 @@ set :ssh_options, forward_agent: true
 
 server 'dev.datacrafts.io', user: 'crafter', port: 22032, roles: %w{app web db}
 
-set :unicorn_pid, "#{shared_path}/pids/unicorn.pid"
+set :unicorn_pid, "#{shared_path}/tmp/pids/unicorn.pid"
 set :unicorn_conf, "#{current_path}/config/unicorn/#{fetch(:rails_env)}.rb"
 
 set :rvm_type, :auto
@@ -37,9 +37,7 @@ namespace :landing do
 end
 
 namespace :deploy do
-
   task :restart do
     invoke 'unicorn:reload'
   end
-
 end
