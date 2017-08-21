@@ -12,12 +12,10 @@ set :default_environment, {
 set :pty, true
 set :ssh_options, forward_agent: true
 
-set :linked_files, fetch(:linked_files, []) + %w(
-  .env
-)
 server 'dev.datacrafts.io', user: 'crafter', port: 22032, roles: %w{app web db}
 
 set :unicorn_pid, "#{shared_path}/pids/unicorn.pid"
+set :unicorn_conf, "#{current_path}/config/unicorn/#{fetch(:rails_env)}.rb"
 
 set :rvm_type, :auto
 set :log_level, :debug
