@@ -23,6 +23,7 @@ set :log_level, :debug
 set :linked_dirs, fetch(:linked_dirs, []) + %w(
   log
   tmp/pids
+  tmp/sockets
 )
 
 after 'deploy:publishing', 'deploy:restart'
@@ -39,6 +40,6 @@ end
 
 namespace :deploy do
   task :restart do
-    invoke 'unicorn:reload'
+    invoke 'unicorn:legacy_restart'
   end
 end
