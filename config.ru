@@ -1,2 +1,2 @@
-require './landing'
-run App
+require './landing_app'
+run LandingApp
