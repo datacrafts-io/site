@@ -3,4 +3,6 @@ config/deploy.rb
 config/deploy/*
 .env
 
+log/*
+
 .idea/*
