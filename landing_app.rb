@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sprockets'
+require 'bootstrap'
 
 enable :logging
 

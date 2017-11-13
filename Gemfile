@@ -6,6 +6,8 @@ gem 'slim'
 gem 'sass'
 gem 'uglifier'
 
+gem 'bootstrap', '~> 4.0.0.beta2.1'
+
 group :development do
   gem 'thin'
   gem 'capistrano', require: false
