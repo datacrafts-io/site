@@ -1,2 +1,5 @@
 require './landing_app'
-run LandingApp
+
+map '/' do
+  run LandingApp
+end

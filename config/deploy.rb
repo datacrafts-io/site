@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.4.0'
+lock '3.10.0'
 
 set :application, 'datacrafts_landing'
 set :repo_url, 'git@github.com:datacrafts-io/site.git'
@@ -27,6 +27,7 @@ set :linked_dirs, fetch(:linked_dirs, []) + %w(
 )
 
 after 'deploy:publishing', 'deploy:restart'
+after 'deploy:publishing', 'deploy:assets_precompile'
 
 namespace :landing do
   desc "Set up config files (first time setup)"
@@ -41,5 +42,9 @@ end
 namespace :deploy do
   task :restart do
     invoke 'unicorn:legacy_restart'
+  end
+
+  task :assets_precompile do
+    sh 'sass --sourcemap=none --update assets/stylesheets/app.scss:public/assets/app.css'
   end
 end

@@ -1,6 +1,10 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
+gem 'sprockets'
+gem 'slim'
+gem 'sass'
+gem 'uglifier'
 
 group :development do
   gem 'thin'
