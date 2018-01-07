@@ -27,7 +27,7 @@ set :linked_dirs, fetch(:linked_dirs, []) + %w(
 )
 
 after 'deploy:publishing', 'deploy:restart'
-after 'deploy:publishing', 'deploy:assets_precompile'
+after 'deploy:finishing', 'deploy:assets_precompile'
 
 namespace :landing do
   desc "Set up config files (first time setup)"
@@ -45,6 +45,36 @@ namespace :deploy do
   end
 
   task :assets_precompile do
-    sh 'sass --sourcemap=none --update assets/stylesheets/app.scss:public/assets/app.css'
+    on roles(:app) do
+      within current_path do
+        with rails_env: fetch(:rails_env) do
+          require 'sprockets'
+          require 'bootstrap'
+
+          sprockets = Sprockets::Environment.new
+          sprockets.append_path('assets/stylesheets')
+          sprockets.append_path('assets/javascripts')
+
+          sprockets.js_compressor  = :uglify
+          sprockets.css_compressor = :sass
+
+          puts "######################"
+          puts sprockets.inspect
+
+          build_dir = 'public/assets'
+          %w( app.scss ).each do |bundle|
+            asset      = sprockets.find_asset(bundle)
+            asset_path = "#{build_dir}/#{bundle}"
+
+            puts "@@@@@@@@@@@@@@@@@@@@@@"
+            puts bundle.inspect
+            puts asset.inspect
+
+            asset.write_to(asset_path)
+            asset.write_to(asset_path + '.gz')
+          end
+        end
+      end
+    end
   end
 end
