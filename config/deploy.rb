@@ -27,7 +27,7 @@ set :linked_dirs, fetch(:linked_dirs, []) + %w(
 )
 
 after 'deploy:publishing', 'deploy:restart'
-after 'deploy:publishing', 'deploy:assets_precompile'
+after 'deploy:finishing', 'deploy:assets_precompile'
 
 namespace :landing do
   desc "Set up config files (first time setup)"
@@ -45,6 +45,47 @@ namespace :deploy do
   end
 
   task :assets_precompile do
-    sh 'sass --sourcemap=none --update assets/stylesheets/app.scss:public/assets/app.css'
+    require 'sprockets'
+    require 'bootstrap'
+    require 'zlib'
+
+    sprockets = Sprockets::Environment.new
+    sprockets.append_path('assets/stylesheets')
+    sprockets.append_path('assets/javascripts')
+
+    sprockets.js_compressor  = :uglify
+    sprockets.css_compressor = :sass
+
+    build_dir = 'public/assets'
+    %w( app.scss ).each do |bundle|
+      asset      = sprockets.find_asset(bundle)
+      asset_name = asset.pathname.basename.to_s.split('.')[0..1].join('.')
+      asset_path = "#{build_dir}/#{asset_name}"
+
+      asset.write_to(asset_path)
+
+      Zlib::GzipWriter.open(asset_path + '.gz') do |gz|
+        gz.mtime     = File.mtime(asset_path)
+        gz.orig_name = asset_path
+        gz.write(IO.binread(asset_path))
+      end
+    end
+
+    invoke 'deploy:upload_assets'
+  end
+
+  task :upload_assets do
+    on roles(:app) do
+      within release_path do
+        asset_full_path   = "#{release_path}/public/assets"
+        asset_parent_path = File.dirname(asset_full_path)
+        execute "mkdir -p #{asset_full_path}"
+        upload! './public/assets', asset_parent_path, recursive: true
+      end
+    end
+
+    run_locally do
+      execute 'rm -r ./public/assets'
+    end
   end
 end
