@@ -8,8 +8,11 @@ html
     meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
     meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"
 
-    link rel="stylesheet" href="assets/app.css"
+    == stylesheet_tag 'app', media: 'all'
+    == javascript_tag 'app'
 
   body
+    img src=image_path('logo.svg')
+
     .container
       == yield
