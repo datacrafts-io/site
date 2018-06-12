@@ -1,21 +1,14 @@
 # config valid only for current version of Capistrano
-lock '3.10.0'
+lock '3.11.0'
 
 set :application, 'datacrafts_landing'
 set :repo_url, 'git@github.com:datacrafts-io/site.git'
-set :branch, (ENV['BRANCH'] || 'master')
-
-set :default_environment, {
-  'PATH' => "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
-}
+set :branch, (ENV['BRANCH'] || 'landing')
 
 set :pty, true
 set :ssh_options, forward_agent: true
 
-server 'dev.datacrafts.io', user: 'crafter', port: 22032, roles: %w{app web db}
-
-set :unicorn_pid, -> { "#{shared_path}/tmp/pids/unicorn.pid" }
-set :unicorn_conf, -> { "#{current_path}/config/unicorn/#{fetch(:rails_env)}.rb" }
+server '195.201.34.12', user: 'crafter', port: 22032, roles: %w{app web db}
 
 set :rvm_type, :auto
 set :log_level, :debug
@@ -25,30 +18,3 @@ set :linked_dirs, fetch(:linked_dirs, []) + %w(
   tmp/pids
   tmp/sockets
 )
-
-after 'deploy:publishing', 'deploy:restart'
-after 'deploy:finishing', 'deploy:assets_precompile'
-
-namespace :landing do
-  desc "Set up config files (first time setup)"
-  task :setup do
-    on roles(:app) do
-      execute "mkdir -p #{shared_path}/tmp/pids"
-      execute "mkdir -p #{shared_path}/tmp/sockets"
-    end
-  end
-end
-
-namespace :deploy do
-  task :restart do
-    invoke 'unicorn:legacy_restart'
-  end
-
-  task :assets_precompile do
-    on roles(:app) do
-      within release_path do
-        execute 'RACK_ENV=production rake assets:precompile'
-      end
-    end
-  end
-end
