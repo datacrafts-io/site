@@ -25,7 +25,7 @@ namespace :deploy do
   task :assets_precompile do
     on roles(:app) do
       within release_path do
-        execute 'RACK_ENV=production rake assets:precompile'
+        execute(:rake, 'assets:precompile')
       end
     end
   end
