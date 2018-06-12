@@ -4,7 +4,7 @@ gem 'sinatra'
 gem 'sinatra-asset-pipeline'
 gem 'slim'
 
-gem 'bootstrap', '~> 4.0.0'
+gem 'bootstrap', '~> 4.1.1'
 
 group :development do
   gem 'thin'

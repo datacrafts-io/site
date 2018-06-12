@@ -1,6 +1,6 @@
 require 'sinatra'
-require 'bootstrap'
 require 'sinatra/asset_pipeline'
+require 'bootstrap'
 
 enable :logging
 
