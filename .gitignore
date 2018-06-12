@@ -2,8 +2,6 @@ public/*
 .sass-cache/*
 
 config/secrets.yml
-config/deploy.rb
-config/deploy/*
 .env
 
 log/*

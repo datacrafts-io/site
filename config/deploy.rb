@@ -18,3 +18,15 @@ set :linked_dirs, fetch(:linked_dirs, []) + %w(
   tmp/pids
   tmp/sockets
 )
+
+after 'deploy:finishing', 'deploy:assets_precompile'
+
+namespace :deploy do
+  task :assets_precompile do
+    on roles(:app) do
+      within release_path do
+        execute 'RACK_ENV=production rake assets:precompile'
+      end
+    end
+  end
+end
