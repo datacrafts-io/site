@@ -1,0 +1,6 @@
+- flash.each do |type, msg|
+  .alert class="alert-#{ type }" role="alert"
+    = msg
+    button.close type="button" data-dismiss="alert" aria-label="Close"
+      span aria-hidden="true"
+        | &times;

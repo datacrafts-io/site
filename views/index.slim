@@ -200,13 +200,13 @@
     .row
       .col-7
         p Drop us a line:
-        form
+        form method="POST" action="/"
           .form-group
-            input.form-control.form-control-lg.py-3 name="name" type="text" value="" placeholder="Name"
+            input.form-control.form-control-lg.py-3 name="name" type="text" value="" placeholder="Name" required="required"
           .form-group
-            input.form-control.form-control-lg.py-3 name="email" type="email" value="" placeholder="Email"
+            input.form-control.form-control-lg.py-3 name="email" type="email" value="" placeholder="Email" required="required"
           .form-group
-            textarea.form-control.form-control-lg.py-3 name="message" placeholder="Message"
+            textarea.form-control.form-control-lg.py-3 name="message" placeholder="Message" required="required"
 
           .form-group
             input.btn.btn-lg.btn-solid.py-0.px-5.mt-5 type="submit" value="SEND"
