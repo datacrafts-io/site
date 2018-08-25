@@ -9,6 +9,9 @@ gem 'bootstrap', '~> 4.1.1'
 
 gem 'puma'
 
+gem 'dotenv'
+gem 'slack-notifier'
+
 group :development do
   gem 'capistrano', require: false
   gem 'capistrano-bundler', require: false

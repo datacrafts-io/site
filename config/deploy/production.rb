@@ -1,5 +1,4 @@
-set :stage,      :production
-set :rails_env,  :production
+set :stage, :production
 
 set :branch, 'master'
 set :deploy_to, '/home/crafter/datacrafts_landing'

@@ -13,6 +13,9 @@ server '195.201.34.12', user: 'crafter', port: 22032, roles: %w{app web db}
 set :rvm_type, :auto
 set :log_level, :debug
 
+set :linked_files, fetch(:linked_files, []) + %w(
+  .env
+)
 set :linked_dirs, fetch(:linked_dirs, []) + %w(
   log
   tmp/pids
