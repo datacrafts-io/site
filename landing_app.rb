@@ -18,9 +18,10 @@ class LandingApp < Sinatra::Base
   end
 
   post '/' do
-    flash[:success] = "Thanks! We'll contact you ASAP."
-
-    notifier.ping(slack_message)
+    if params_valid?
+      flash[:success] = "Thanks! We'll contact you ASAP."
+      notifier.ping(slack_message)
+    end
 
     redirect '/'
   end
@@ -39,5 +40,9 @@ class LandingApp < Sinatra::Base
 
   def notifier
     @notifier ||= Slack::Notifier.new(ENV['SLACK_URL'])
+  end
+
+  def params_valid?
+    !params[:name].empty? && !params[:email].empty? && !params[:message].empty?
   end
 end
