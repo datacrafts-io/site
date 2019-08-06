@@ -5,7 +5,13 @@ require 'sinatra/flash'
 require 'bootstrap'
 require 'slack-notifier'
 
+require "sinatra/reloader"
+
 class LandingApp < Sinatra::Base
+  configure :development do
+    register Sinatra::Reloader
+  end
+
   enable :sessions
 
   set :assets_paths, %w(assets assets/stylesheets assets/javascripts assets/images)
@@ -31,9 +37,11 @@ class LandingApp < Sinatra::Base
   def slack_message
     header = "<!here|here>\n"
 
-    message = "*Name:* #{ params[:name] }\n"
-    message += "*Email:* #{ params[:email] } \n"
-    message += "*Message:* #{ params[:message] }"
+    message = <<~TEXT
+      *Name:* #{params[:name]}
+      *Email:* #{params[:email]}
+      *Message:* #{params[:message]}
+    TEXT
 
     header + Slack::Notifier::Util::Escape.html(message)
   end
@@ -43,6 +51,6 @@ class LandingApp < Sinatra::Base
   end
 
   def params_valid?
-    !params[:name].empty? && !params[:email].empty? && !params[:message].empty?
+    params.values_at(:name, :email, :message).all?(&:present?)
   end
 end

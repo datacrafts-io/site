@@ -18,4 +18,5 @@ group :development do
   gem 'capistrano-rvm', require: false
   gem 'capistrano3-puma', require: false
   gem 'sshkit-sudo', require: false
+  gem 'sinatra-reloader'
 end
